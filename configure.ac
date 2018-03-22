@@ -1,0 +1,9 @@
+
+AC_PREREQ(2.59)
+AC_INIT(m4lib, 0.1)
+
+AM_INIT_AUTOMAKE()
+
+AC_CONFIG_FILES([Makefile])
+AC_OUTPUT
+
