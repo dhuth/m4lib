@@ -10,6 +10,7 @@ m4_define(`m4_list_expand',                                 `m4_pass$1')
 
 
 m4_define(`m4_list_len',                                    `m4_nargs(m4_list_expand($1))')
+# m4_list_len(list, item)
 m4_define(`m4_list_item',                                   `m4_argn($2,m4_list_expand($1))')
 m4_define(`m4_list_first',                                  `m4_first(m4_list_expand($1))')
 m4_define(`m4_list_rest',                                   `m4_list(m4_rest(m4_list_expand($1)))')
@@ -17,5 +18,10 @@ m4_define(`m4_list_empty',                                  `m4_ifelse(m4_list_l
 
 m4_define(`m4_list_foreach',                                `m4_for(`_i', 0, m4_list_len($2), `m4_with(`$1', `m4_list_item($2, _i)', `$3')')') 
 m4_define(`m4_list_enumerate',                              `m4_for(`$1', 0, m4_list_len($3), `m4_with(`$2', `m4_list_item($3, `$1')', `$4')')')
+
+m4_define(`m4_list_join',                                   `m4_ifelse(
+                                                                m4_list_empty($1), `0', `',
+                                                                m4_list_len($1),   `1', `m4_pass$1',
+                                                                                        `m4_list_first($1)$2$0(m4_rest($1),`$2')')')
 
 ')m4_dnl
