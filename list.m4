@@ -16,10 +16,11 @@ m4_define(`m4_list_first',                                  `m4_first(m4_list_ex
 m4_define(`m4_list_rest',                                   `m4_list(m4_rest(m4_list_expand($1)))')
 m4_define(`m4_list_empty',                                  `m4_ifelse(m4_list_len($1), `0', m4_true, m4_false)')
 
+m4_define(`__m4_do_item',                                   m4_defn(`m4_with'))
 m4_define(`__m4_list_foreach',                              `m4_for(`_i', 0, m4_list_len($2), `m4_with(`$1', `m4_list_item($2, _i)', `$3')')')
-m4_define(`__m4_list_foreach_join',                         `m4_ifelse(m4_list_empty($1), `0', `',
-                                                                       m4_list_len($1),   `1', `m4_with(`$1', `m4_list_item($2, 1)', `$3')',
-                                                                            `m4_with(`$1', `m4_list_item($2, 1)', `$3$4')$0(`$1',m4_list_rest($2),`$3',`$4')')')
+m4_define(`__m4_list_foreach_join',                         `m4_ifelse(m4_list_empty($2), m4_true, `',
+                                                                       m4_list_len($2),   1,       `__m4_do_item(`$1',m4_list_first($2),`$3')',
+                                                                                                   `__m4_do_item(`$1',m4_list_first($2),`$3')$4$0(`$1',m4_list_rest($2),`$3',`$4')')')
 
 # m4_list_foreach(var, list, expr)
 # m4_list_foreach(var, list, expr, delimiter)
