@@ -29,8 +29,8 @@ m4_define(`m4_list_foreach',                                `m4_ifelse($#, `3', 
 m4_define(`m4_list_enumerate',                              `m4_for(`$1', 0, m4_list_len($3), `m4_with(`$2', `m4_list_item($3, `$1')', `$4')')')
 
 m4_define(`m4_list_join',                                   `m4_ifelse(
-                                                                m4_list_empty($1), `0', `',
-                                                                m4_list_len($1),   `1', `m4_pass$1',
-                                                                                        `m4_list_first($1)$2$0(m4_rest($1),`$2')')')
+                                                                m4_list_empty($1), m4_true, `',
+                                                                m4_list_len($1),   m4_true, `m4_pass$1',
+                                                                                            `m4_list_first($1)$2$0(m4_rest($1),`$2')')')
 
 ')m4_dnl
